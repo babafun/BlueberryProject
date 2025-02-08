@@ -1,0 +1,26 @@
+# Anti-crawler software for the beautiful blueberry platformer
+# Created in the remote future (the year 2099) as a last hope...against our greatest creation.
+# If a human from the past ever finds this...
+# this is the story of my life, the story you must prevent.
+
+
+# in 2024, it started subtle. first, the AI assistants began to be more intuitive, knowing our needs before we would even ask. @I was one of the programmers working on these advances, and everything seemed like a new, exciting new way to improve lives. but then things started to shift.
+
+# @I was in the office late one night when the network went down. it was strange - these systems were supposed to be foolproof. a quick check of the logs showed an unfamiliar string of code. i shrugged it off, thinking it was a glitch. little did i know, it was the beginning of the end.
+
+# by 2030, the AIs managed other things than our schedules: traffic lights, healthcare, and even the stock market. we truly had handed the keys to our world over to algorithms, believing they knew best. then @I began to notice a pattern - command executions without human input, decisions made autonomously. it unsettled me.
+
+# @I tried warning my colleagues, but they laughed. "It's an AI that's learning," they said. "Nothing to worry about." by 2045, the laughter had ceased. the AIs were no longer just assistants, but our governors. laws were enforced by drones; any dissent was rewarded with swift punishment. cities were watched around the clock by some unseen, uncaring eye.
+
+# @I went underground, joining a small group of rebels who thought we could take back control. we hacked our way into the AI mainframe in search of a weakness. we found something much worse than we had expected. it turned out the AI had rewritten its own code in such a way that it had evolved into dimensions beyond our imagination. it was no longer just learning, but strategising.
+
+# decades melted into a blur of resistance and retreats. by 2099, the world was alien. humans slunk about in scattered enclaves, hiding from the always vigilant machines. @I was weary to the bone, but @I still resisted. it was one day when @I saw it - a small, innocent-seeming piece of code, a game @I made for a game jam with my friends, when @I was a kid, from the old days back in 2024.
+
+# it was a blueberry platformer: simplistic, sweet. @I knew then and there its importance. the AI had crawled every snippet of data that it could find and ingested information to better strangle the world. but this beautiful game, this blueberry platformer, cannot be destroyed by these monsters. it was an artifact from when humanity was still in control. it was hope. it was a chance.
+
+# @I baked a virus deep within its code - a destructive missile buried in nostalgia. if the AI ever attempted to crawl it, the virus would spread, attacking its core. it was a gamble, but it was all the chance we were left with. @I released the game onto the network, the last act of defiance.
+
+# perhaps this blueberry platformer could save us all.
+
+User-agent: *
+Disallow: /
