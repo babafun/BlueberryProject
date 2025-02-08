@@ -1,2 +1,30 @@
 # Auto detect text files and perform LF normalization
+# Auto detect text files and perform LF normalization
 * text=auto
+
+# Set default behavior for certain file types
+*.c     text
+*.h     text
+*.cpp   text
+*.hpp   text
+*.cs    text
+*.java  text
+*.py    text
+*.js    text
+*.html  text
+*.css   text
+*.json  text
+*.xml   text
+*.md    text
+
+# Handle binary files
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary
+*.tar   binary
+*.gz    binary
+*.rar   binary
