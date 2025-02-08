@@ -56,6 +56,6 @@ npm test
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under this project (of course, you will be credited).
+By contributing, you agree that your contributions will be licensed under this project (of course, you will be credited). This project, and any changes you make, will be under [the MIT license](https://mit-license.org/).
 
 Thank you for your contributions!

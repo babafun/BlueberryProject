@@ -28,6 +28,6 @@ We welcome contributions from the community. If you would like to contribute, pl
 
 ## License
 
-All rights reserved.
+This project is licensed under the [MIT License](https://mit-license.org/)
 
 Thank you for being a part of the Blueberry Project!
