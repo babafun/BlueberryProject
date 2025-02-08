@@ -30,8 +30,4 @@ We welcome contributions from the community. If you would like to contribute, pl
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Contact
-
-For any questions or feedback, please contact us at [email@example.com](mailto:email@example.com).
-
 Thank you for being a part of the Blueberry Project!
