@@ -38,7 +38,7 @@ Please read our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the standard
 
 ## Reporting Issues
 
-If you find a bug or have a feature request, please create an issue in the [Issue Tracker](https://github.com/your-username/Hackathon-Project/issues).
+If you find a bug or have a feature request, please create an issue in the [Issue Tracker](https://github.com/babafun/BlueBerryProject/issues).
 
 ## Style Guide
 
@@ -56,6 +56,6 @@ npm test
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the project's [MIT License](LICENSE).
+By contributing, you agree that your contributions will be licensed under this project (of course, you will be credited).
 
 Thank you for your contributions!
