@@ -8,7 +8,7 @@ Thank you for considering contributing to our Hackathon Project! Here are some g
 2. **Clone your fork**:
 
     ```sh
-    git clone https://github.com/babafun/Hackathon-Project.git
+    git clone https://github.com/babafun/BlueberryProject.git
     ```
 
 3. **Create a branch**:
