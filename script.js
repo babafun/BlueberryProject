@@ -17,6 +17,11 @@ const platforms = [
 let texturesLoaded = 0;
 const totalTextures = platforms.length;
 
+// Bypass CORS by setting crossOrigin attribute
+platforms.forEach(platform => {
+    platform.texture.crossOrigin = "anonymous";
+});
+
 platforms.forEach(platform => {
     platform.texture.onload = () => {
         texturesLoaded++;

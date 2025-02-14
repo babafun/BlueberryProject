@@ -6,10 +6,13 @@ export class Blueberry {
         this.platforms = platforms;
 
         this.grass = new Image();
+        this.grass.crossOrigin = "anonymous";
         this.grass.src = "grass.png";
 
         this.idleFrame = new Image();
+        this.idleFrame.crossOrigin = "anonymous";
         this.rollingFrame = new Image();
+        this.rollingFrame.crossOrigin = "anonymous";
         this.rollingFrame.src = "The BlueBerry/roll.svg";
 
         this.runningFrames = [];
@@ -17,6 +20,7 @@ export class Blueberry {
             this.idleFrame.src = "The BlueBerry/stand.svg";
             for (let i = 1; i <= 2; i++) {
                 const runningFrame = new Image();
+                runningFrame.crossOrigin = "anonymous";
                 runningFrame.src = `The BlueBerry/run${i}.svg`;
                 this.runningFrames.push(runningFrame);
             }
@@ -24,6 +28,7 @@ export class Blueberry {
             this.idleFrame.src = "ScratchCat/stand.svg";
             for (let i = 1; i <= 16; i++) {
                 const runningFrame = new Image();
+                runningFrame.crossOrigin = "anonymous";
                 runningFrame.src = `ScratchCat/run-${i}.svg`;
                 this.runningFrames.push(runningFrame);
             }
@@ -31,6 +36,7 @@ export class Blueberry {
             this.idleFrame.src = "The PurpleBerry/stand.svg";
             for (let i = 1; i <= 2; i++) {
                 const runningFrame = new Image();
+                runningFrame.crossOrigin = "anonymous";
                 runningFrame.src = `The PurpleBerry/run${i}.svg`;
                 this.runningFrames.push(runningFrame);
             }
