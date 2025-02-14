@@ -1,4 +1,4 @@
-import { Blueberry } from './blueberry_class_definition.js'; // Ensure correct import path
+import * as blueberryModule from './blueberry_class_definition.js'; // Ensure correct import path
 
 const createGrassTexture = () => {
     const img = new Image();
@@ -29,7 +29,7 @@ platforms.forEach(platform => {
         if (texturesLoaded === totalTextures) {
             // Start the game once all textures are loaded
             console.log('All textures loaded. Starting game...');
-            const blueberryGame = new Blueberry("gameCanvas", platforms);
+            const blueberryGame = new blueberryModule.Blueberry("gameCanvas", platforms);
         }
     };
     platform.texture.onerror = () => {
