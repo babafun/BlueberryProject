@@ -22,6 +22,8 @@ To get started with the Blueberry Project, follow these steps:
 3. Install dependencies: `npm install`
 4. Start the development server: `npm start`
 
+Or use GitHub Desktop (much easier, doesn't require Node.js npm)!
+
 ## Contributing
 
 We welcome contributions from the community. If you would like to contribute, please fork the repository and submit a pull request. Make sure to follow our [contribution guidelines](CONTRIBUTING.md).
