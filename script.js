@@ -30,8 +30,8 @@ const levels = [
     { texture: createGrassTexture(), x: 250, y: 150, width: 100, height: 20 },
     { texture: createGrassTexture(), x: 300, y: 50, width: 100, height: 20 },
 ]];
-const platforms = levels[1]; // Change the level index to test different levels
-const answer = "";
+let answer = "";
+let levelIndex = 0;
 // Ensure all platform textures are loaded before starting the game
 let texturesLoaded = 0;
 const totalTextures = platforms.length;
@@ -50,7 +50,7 @@ platforms.forEach(platform => {
             console.log('All textures loaded. Starting game...');
             answer = prompt("Enter level ID (0 or 1):", "0");
             try {
-                const levelIndex = parseInt(answer);
+                levelIndex = parseInt(answer);
                 if (isNaN(levelIndex) || levelIndex < 0 || levelIndex >= levels.length) {
                     throw new Error('Invalid level ID! Please enter a valid level ID.');
                 }
