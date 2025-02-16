@@ -6,12 +6,12 @@ const createGrassTexture = () => {
     return img;
 };
 const levels = [
-    [{ texture: createGrassTexture(), x: 0, y: 600, width: 800, height: 200 }, // Ground platform
-    { texture: createGrassTexture(), x: 400, y: 500, width: 200, height: 20 },
+    [{ texture: createGrassTexture(), x: 0, y: 550, width: 800, height: 200 }, // Ground platform
+    { texture: createGrassTexture(), x: 400, y: 450, width: 200, height: 20 },
     { texture: createGrassTexture(), x: 100, y: 300, width: 250, height: 20 },
     { texture: createGrassTexture(), x: 300, y: 100, width: 300, height: 20 }],
 
-    [{ texture: createGrassTexture(), x: 0, y: 600, width: 800, height: 200 }, // Ground platform
+    [{ texture: createGrassTexture(), x: 0, y: 580, width: 800, height: 200 }, // Ground platform
 
     // New tighter platforms
     { texture: createGrassTexture(), x: 100, y: 500, width: 150, height: 20 },
@@ -22,7 +22,7 @@ const levels = [
     { texture: createGrassTexture(), x: 500, y: 80, width: 150, height: 20 },
     // Platforms with gaps in between that require jumping across
     { texture: createGrassTexture(), x: 400, y: 500, width: 150, height: 20 },
-    { texture: createGrassTexture(), x: 50, y: 230, width: 150, height: 20 },
+    { texture: createGrassTexture(), x: 50, y: 255, width: 150, height: 20 },
 
     // More challenging vertical platforming
     { texture: createGrassTexture(), x: 250, y: 200, width: 100, height: 20 },
