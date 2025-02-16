@@ -32,6 +32,18 @@ const levels = [
 ]];
 let answer = "";
 let levelIndex = 0;
+let platforms = [];
+answer = prompt("Enter level ID (0 or 1):", "0");
+try {
+    levelIndex = parseInt(answer);
+    if (isNaN(levelIndex) || levelIndex < 0 || levelIndex >= levels.length) {
+        throw new Error('Invalid level ID! Please enter a valid level ID.');
+    }
+    platforms = levels[levelIndex];
+} catch (error) {
+    alert('Invalid level ID. Please refresh and try again.');
+    console.error(error);
+}
 // Ensure all platform textures are loaded before starting the game
 let texturesLoaded = 0;
 const totalTextures = platforms.length;
@@ -45,21 +57,7 @@ platforms.forEach(platform => {
     platform.texture.onload = () => {
         texturesLoaded++;
         console.log(`Texture loaded: ${texturesLoaded}/${totalTextures}`);
-        if (texturesLoaded === totalTextures) {
-            // Start the game once all textures are loaded
-            console.log('All textures loaded. Starting game...');
-            answer = prompt("Enter level ID (0 or 1):", "0");
-            try {
-                levelIndex = parseInt(answer);
-                if (isNaN(levelIndex) || levelIndex < 0 || levelIndex >= levels.length) {
-                    throw new Error('Invalid level ID! Please enter a valid level ID.');
-                }
-                window.blueberryGame = new blueberryModule.Blueberry("gameCanvas", levels[levelIndex], "blueberry");
-            } catch (error) {
-                alert('Invalid level ID. Please refresh and try again.');
-                console.error(error);
-            }
-        }
+        window.blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry");
     };
     platform.texture.onerror = () => {
         console.error('Failed to load texture:', platform.texture.src);
