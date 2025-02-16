@@ -21,16 +21,10 @@ const levels = [
 
     // Higher platforms with more jumps required
     { texture: createGrassTexture(), x: 200, y: 150, width: 250, height: 20 },
-    { texture: createGrassTexture(), x: 500, y: 100, width: 150, height: 20 },
-
-    // Smaller platforms at higher positions to test accuracy
-    { texture: createGrassTexture(), x: 50, y: 75, width: 100, height: 20 },
-    { texture: createGrassTexture(), x: 650, y: 50, width: 100, height: 20 },
-
+    { texture: createGrassTexture(), x: 500, y: 60, width: 150, height: 20 },
     // Platforms with gaps in between that require jumping across
     { texture: createGrassTexture(), x: 400, y: 450, width: 150, height: 20 },
-    { texture: createGrassTexture(), x: 580, y: 400, width: 150, height: 20 },
-    { texture: createGrassTexture(), x: 50, y: 250, width: 150, height: 20 },
+    { texture: createGrassTexture(), x: 50, y: 205, width: 150, height: 20 },
 
     // More challenging vertical platforming
     { texture: createGrassTexture(), x: 250, y: 150, width: 100, height: 20 },
