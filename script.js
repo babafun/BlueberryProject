@@ -1,66 +1,71 @@
 import * as blueberryModule from './blueberry_class_definition.js'; // Ensure correct import path
-// Create a function to load the grass texture
-const createGrassTexture = () => {
+
+// Create a function to load a texture based on its identifier
+const createTexture = (textureId) => {
     const img = new Image();
-    img.src = 'grass.png';
+    img.crossOrigin = "anonymous";
+    switch (textureId) {
+        case 'grass':
+            img.src = 'grass.png';
+            break;
+        // Add more cases here for different textures
+        default:
+            console.error(`Unknown texture ID: ${textureId}`);
+            img.src = 'fallback.png'; // Fallback texture
+    }
     return img;
 };
-const levels = [
-    [{ texture: createGrassTexture(), x: 0, y: 550, width: 800, height: 200 }, // Ground platform
-    { texture: createGrassTexture(), x: 400, y: 450, width: 200, height: 20 },
-    { texture: createGrassTexture(), x: 100, y: 300, width: 250, height: 20 },
-    { texture: createGrassTexture(), x: 300, y: 100, width: 300, height: 20 }],
 
-    [{ texture: createGrassTexture(), x: 0, y: 580, width: 800, height: 200 }, // Ground platform
-
-    // New tighter platforms
-    { texture: createGrassTexture(), x: 100, y: 500, width: 150, height: 20 },
-    { texture: createGrassTexture(), x: 350, y: 400, width: 150, height: 20 },
-    { texture: createGrassTexture(), x: 600, y: 300, width: 200, height: 20 },
-    // Higher platforms with more jumps required
-    { texture: createGrassTexture(), x: 200, y: 200, width: 250, height: 20 },
-    { texture: createGrassTexture(), x: 500, y: 80, width: 150, height: 20 },
-    // Platforms with gaps in between that require jumping across
-    { texture: createGrassTexture(), x: 400, y: 500, width: 150, height: 20 },
-    { texture: createGrassTexture(), x: 50, y: 255, width: 150, height: 20 },
-
-    // More challenging vertical platforming
-    { texture: createGrassTexture(), x: 250, y: 200, width: 100, height: 20 },
-    { texture: createGrassTexture(), x: 300, y: 50, width: 100, height: 20 },
-]];
 let answer = "";
 let levelIndex = 0;
 let platforms = [];
-answer = prompt("Enter level ID (0 or 1):", "0");
-try {
-    levelIndex = parseInt(answer);
-    if (isNaN(levelIndex) || levelIndex < 0 || levelIndex >= levels.length) {
-        throw new Error('Invalid level ID! Please enter a valid level ID.');
-    }
-    platforms = levels[levelIndex];
-} catch (error) {
-    alert('Invalid level ID. Please refresh and try again.');
-    console.error(error);
-}
-// Ensure all platform textures are loaded before starting the game
-let texturesLoaded = 0;
-const totalTextures = platforms.length;
 
-// Bypass CORS by setting crossOrigin attribute
-platforms.forEach(platform => {
-    platform.texture.crossOrigin = "anonymous";
-});
+// Fetch levels from the JSONC file
+fetch('levels.jsonc')
+    .then(response => response.text())
+    .then(text => {
+        // Parse JSONC to JSON
+        const levels = JSON.parse(text.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, ''));
+        
+        // Prompt the user to enter a level ID
+        answer = prompt("Enter level ID (0 or 1):", "0");
+        try {
+            levelIndex = parseInt(answer);
+            if (isNaN(levelIndex) || levelIndex < 0 || levelIndex >= levels.length) {
+                throw new Error('Invalid level ID! Please enter a valid level ID.');
+            }
+            // Map the levels to include the appropriate texture
+            platforms = levels[levelIndex].map(platform => ({
+                ...platform,
+                texture: createTexture(platform.texture)
+            }));
+        } catch (error) {
+            alert('Invalid level ID. Please refresh and try again.');
+            console.error(error);
+        }
 
-platforms.forEach(platform => {
-    platform.texture.onload = () => {
-        texturesLoaded++;
-        console.log(`Texture loaded: ${texturesLoaded}/${totalTextures}`);
-        window.blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry");
-    };
-    platform.texture.onerror = () => {
-        console.error('Failed to load texture:', platform.texture.src);
-    };
-});
+        // Ensure all platform textures are loaded before starting the game
+        let texturesLoaded = 0;
+        const totalTextures = platforms.length;
 
-// Log when the grass texture starts loading
-console.log('Loading grass textures...');
+        platforms.forEach(platform => {
+            platform.texture.onload = () => {
+                texturesLoaded++;
+                console.log(`Texture loaded: ${texturesLoaded}/${totalTextures}`);
+                if (texturesLoaded === totalTextures) {
+                    // Start the game once all textures are loaded
+                    console.log('All textures loaded. Starting game...');
+                    window.blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry");
+                }
+            };
+            platform.texture.onerror = () => {
+                console.error('Failed to load texture:', platform.texture.src);
+            };
+        });
+
+        // Log when the grass texture starts loading
+        console.log('Loading textures...');
+    })
+    .catch(error => {
+        console.error('Failed to load levels:', error);
+    });
