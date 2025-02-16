@@ -29,7 +29,7 @@ platforms.forEach(platform => {
         if (texturesLoaded === totalTextures) {
             // Start the game once all textures are loaded
             console.log('All textures loaded. Starting game...');
-            window.blueberryGame = new blueberryModule.Blueberry("gameCanvas", platforms);
+            window.blueberryGame = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry");
         }
     };
     platform.texture.onerror = () => {

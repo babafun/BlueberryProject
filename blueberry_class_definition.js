@@ -1,8 +1,8 @@
 export class Blueberry {
-    constructor(canvasId, platforms) {
+    constructor(canvasId, platforms, costume) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext("2d");
-        this.costume = "blueberry";
+        this.costume = costume;
         this.platforms = platforms;
 
         this.grass = new Image();
