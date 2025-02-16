@@ -1,5 +1,5 @@
 import * as blueberryModule from './blueberry_class_definition.js'; // Ensure correct import path
-
+// Create a function to load the grass texture
 const createGrassTexture = () => {
     const img = new Image();
     img.src = 'grass.png';
