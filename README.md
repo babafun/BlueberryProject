@@ -1,6 +1,7 @@
-# Blueberry Project
+# Blueberry Project Sandbox
 
-Welcome to the Blueberry Project! This project is part of the QE Hackathon and aims to provide an innovative gaming experience using cutting-edge technology.
+Welcome to the Blueberry Project Sandbox! Feel free to mess around here. It's okay if you make a mistake, because the main stuff is on another branch.
+
 
 ## Project Overview
 
