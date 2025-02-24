@@ -1,6 +1,6 @@
-# Blueberry Project
+# Blueberry Project (BETA ZONE)
 
-Welcome to the Blueberry Project! This project is part of the QE Hackathon and aims to provide an innovative gaming experience using cutting-edge technology.
+This is the beta zone. Test out experimental features here. **Every time we stumble across a good feature (it must be stable: i.e. it must not have any bugs or lag), you can submit a pull request to [the main branch](https://github.com/babafun/BlueberryProject).
 
 ## Project Overview
 
