@@ -38,6 +38,8 @@ fetch('levels.jsonc')
             platforms = levels[levelIndex].map(platform => ({
                 ...platform,
                 texture: createTexture(platform.texture)
+                x: platform.x
+                y: platform.y
             }));
         } catch (error) {
             alert('Invalid level ID. Please refresh and try again.');
