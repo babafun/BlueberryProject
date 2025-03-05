@@ -1,5 +1,5 @@
 export class Blueberry {
-    constructor(canvasId, platforms, costume) {
+    constructor(canvasId, platforms, costume, clampCamY = 150) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext("2d");
         this.costume = costume;
@@ -55,6 +55,7 @@ export class Blueberry {
             dy: 0,
             camX: this.startX,
             camY: this.startY,
+            camYHide: clampCamY,
             jumpPower: 15,
             onGround: false,
             canWallJump: false,
@@ -73,6 +74,13 @@ export class Blueberry {
             direction: 1, // 1 for right, -1 for left
             rotation: 0 // Initial rotation angle
         };
+
+        // Add camera properties (representing the top-left corner of the viewport)
+        this.cameraX = 0;
+        this.cameraY = 0;
+
+        // Calculate the maximum level height from the platforms. This prevents scrolling too far down.
+        this.mapHeight = Math.max(...this.platforms.map(p => p.y + p.height));
 
         this.gravity = 0.8;
         this.friction = 0.8;
@@ -121,31 +129,51 @@ export class Blueberry {
     }
 
     drawNextFrame() {
+        // Clear the entire canvas.
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        // Apply camera transform: shift the entire scene by (-cameraX, -cameraY)
+        this.ctx.save();
+        this.ctx.translate(-this.cameraX, -this.cameraY);
+
+        // Determine the current frame for the player.
         if (this.player.isRolling) {
             this.player.currentFrame = this.rollingFrame;
             this.player.rotation += 3 * this.player.dx; // Rotate during rolling
         } else if (this.player.running) {
             this.player.frameCount++;
-            this.player.currentFrame = this.runningFrames[Math.floor(this.player.frameCount / this.player.frameDuration) % this.runningFrames.length];
+            this.player.currentFrame = this.runningFrames[
+                Math.floor(this.player.frameCount / this.player.frameDuration) % this.runningFrames.length
+            ];
         } else {
             this.player.currentFrame = this.idleFrame;
             this.player.rotation = 0; // Reset rotation when not rolling
         }
 
+        // Draw the player
         this.ctx.save();
+        // Translate so that the player is drawn centered at its position.
         this.ctx.translate(this.player.x + this.player.width / 2, this.player.y + this.player.height / 2);
         this.ctx.rotate(this.player.rotation * Math.PI / 180); // Apply rotation
         this.ctx.scale(this.player.direction, 1);
-        this.ctx.drawImage(this.player.currentFrame, -this.player.width / 2, -this.player.height / 2, this.player.width, this.player.height);
+        this.ctx.drawImage(
+            this.player.currentFrame,
+            -this.player.width / 2,
+            -this.player.height / 2,
+            this.player.width,
+            this.player.height
+        );
         this.ctx.restore();
 
+        // Draw each platform
         this.platforms.forEach(platform => {
             if (platform.texture.complete) {
                 this.ctx.drawImage(platform.texture, platform.x, platform.y, platform.width, platform.height);
             }
         });
+
+        // Restore context to remove the camera translate effect.
+        this.ctx.restore();
     }
 
     checkCollisions() {
@@ -154,11 +182,19 @@ export class Blueberry {
         this.player.wallJumpDirection = 0;
 
         this.platforms.forEach(platform => {
-            if (this.player.x < platform.x + platform.width && this.player.x + this.player.width > platform.x &&
-                this.player.y < platform.y + platform.height && this.player.y + this.player.height > platform.y) {
+            if (this.player.x < platform.x + platform.width && 
+                this.player.x + this.player.width > platform.x &&
+                this.player.y < platform.y + platform.height && 
+                this.player.y + this.player.height > platform.y) {
 
-                const overlapX = Math.min(this.player.x + this.player.width - platform.x, platform.x + platform.width - this.player.x);
-                const overlapY = Math.min(this.player.y + this.player.height - platform.y, platform.y + platform.height - this.player.y);
+                const overlapX = Math.min(
+                    this.player.x + this.player.width - platform.x, 
+                    platform.x + platform.width - this.player.x
+                );
+                const overlapY = Math.min(
+                    this.player.y + this.player.height - platform.y, 
+                    platform.y + platform.height - this.player.y
+                );
 
                 if (overlapX < overlapY) {
                     if (this.player.x < platform.x) {
@@ -189,11 +225,11 @@ export class Blueberry {
     }
 
     platformXscroll(platform, displacement) {
-        platform.x += displacement
+        platform.x += displacement;
     }
     
     platformYscroll(platform, displacement) {
-        platform.y += displacement
+        platform.y += displacement;
     }
 
     update() {
@@ -233,6 +269,22 @@ export class Blueberry {
         this.player.x += this.player.dx;
         this.player.y += this.player.dy;
         console.log(`Player delta ${this.player.dx} ${this.player.dy}`);
+
+        // Update the player's camera coordinates (centered on the player).
+        this.player.camX = this.player.x - (this.canvas.width / 2 - this.player.width / 2);
+        this.player.camY = this.player.y - (this.canvas.height / 2 - this.player.height / 2);
+
+        // Calculate and store maxPlayerCamY in the player's properties.
+        this.player.maxPlayerCamY = this.mapHeight - (this.canvas.height + this.player.camYHide);
+
+        // Clamp the player's camY so it doesn't exceed the bottom of the map.
+        if (this.player.camY > this.player.maxPlayerCamY) {
+            this.player.camY = this.player.maxPlayerCamY;
+        }
+
+        // Use the player's camera values for the overall viewport.
+        this.cameraX = this.player.camX;
+        this.cameraY = this.player.camY;
 
         if (this.player.y > this.canvas.height) {
             this.player.x = this.startX;
