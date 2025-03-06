@@ -224,14 +224,6 @@ export class Blueberry {
         this.player.onGround = onAnyPlatform;
     }
 
-    function Xscroll(displacement) {
-        this.platforms.forEach(platform => platform.x += displacement)
-    }
-
-    function Yscroll(displacement) {
-        this.platforms.forEach(platform => platform.y += displacement)
-    }
-
     update() {
         this.player.running = false;
 
