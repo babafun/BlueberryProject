@@ -1,6 +1,17 @@
+/** @typedef {{ x: number, y: number, width: number, height: number, texture: HTMLImageElement }} Platform */
+/** @typedef {{ x: number, y: number, width: number, height: number, speed: number, dx: number, dy: number, camX: number, camY: number, camYHide: number, jumpPower: number, onGround: boolean, canWallJump: boolean, wallJumpDirection: number, isDashing: boolean, dashPower: number, dashLength: number, dashCooldown: number, lastDash: number, running: boolean, isRolling: boolean, currentFrame: HTMLImageElement, frameCount: number, frameDuration: number, airDashCooldown: boolean, direction: number, rotation: number, maxPlayerCamY?: number }} Player */
+
 export class Blueberry {
+    /**
+     * @param {string} canvasId
+     * @param {Platform[]} platforms
+     * @param {"blueberry" | "cat" | string} costume
+     * @param {number} [clampCamY=150]
+     */
     constructor(canvasId, platforms, costume, clampCamY = 150) {
+        /** @type {HTMLCanvasElement} */
         this.canvas = document.getElementById(canvasId);
+        /** @type {CanvasRenderingContext2D} */
         this.ctx = this.canvas.getContext("2d");
         this.costume = costume;
         this.platforms = platforms;
@@ -45,6 +56,7 @@ export class Blueberry {
         this.startX = 150;
         this.startY = platforms[0].y - 50;
 
+        /** @type {Player} */
         this.player = {
             x: this.startX,
             y: this.startY,
@@ -71,32 +83,29 @@ export class Blueberry {
             frameCount: 0,
             frameDuration: this.costume === "cat" ? 2 : 6,
             airDashCooldown: false,
-            direction: 1, // 1 for right, -1 for left
-            rotation: 0 // Initial rotation angle
+            direction: 1,
+            rotation: 0
         };
 
-        // Add camera properties (representing the top-left corner of the viewport)
         this.cameraX = 0;
         this.cameraY = 0;
-
-        // Calculate the maximum level height from the platforms. This prevents scrolling too far down.
         this.mapHeight = Math.max(...this.platforms.map(p => p.y + p.height));
 
         this.gravity = 0.8;
         this.friction = 0.8;
-        this.rollingSpeedMultiplier = 0.8; // Rolling speed reduction
+        this.rollingSpeedMultiplier = 0.8;
 
         this.keys = {};
 
         document.addEventListener("keydown", (e) => this.handleKeyDown(e));
         document.addEventListener("keyup", (e) => this.handleKeyUp(e));
 
-        // Ensure images are loaded before starting the update loop
         this.idleFrame.onload = () => {
             this.update();
         };
     }
 
+    /** @param {KeyboardEvent} e */
     handleKeyDown(e) {
         this.keys[e.key] = true;
         this.keys[e.code] = true;
@@ -122,6 +131,7 @@ export class Blueberry {
         }
     }
 
+    /** @param {KeyboardEvent} e */
     handleKeyUp(e) {
         this.keys[e.key] = false;
         this.keys[e.code] = false;
@@ -129,17 +139,14 @@ export class Blueberry {
     }
 
     drawNextFrame() {
-        // Clear the entire canvas.
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Apply camera transform: shift the entire scene by (-cameraX, -cameraY)
         this.ctx.save();
         this.ctx.translate(-this.cameraX, -this.cameraY);
 
-        // Determine the current frame for the player.
         if (this.player.isRolling) {
             this.player.currentFrame = this.rollingFrame;
-            this.player.rotation += 3 * this.player.dx; // Rotate during rolling
+            this.player.rotation += 3 * this.player.dx;
         } else if (this.player.running) {
             this.player.frameCount++;
             this.player.currentFrame = this.runningFrames[
@@ -147,14 +154,12 @@ export class Blueberry {
             ];
         } else {
             this.player.currentFrame = this.idleFrame;
-            this.player.rotation = 0; // Reset rotation when not rolling
+            this.player.rotation = 0;
         }
 
-        // Draw the player
         this.ctx.save();
-        // Translate so that the player is drawn centered at its position.
         this.ctx.translate(this.player.x + this.player.width / 2, this.player.y + this.player.height / 2);
-        this.ctx.rotate(this.player.rotation * Math.PI / 180); // Apply rotation
+        this.ctx.rotate(this.player.rotation * Math.PI / 180);
         this.ctx.scale(this.player.direction, 1);
         this.ctx.drawImage(
             this.player.currentFrame,
@@ -165,14 +170,12 @@ export class Blueberry {
         );
         this.ctx.restore();
 
-        // Draw each platform
         this.platforms.forEach(platform => {
             if (platform.texture.complete) {
                 this.ctx.drawImage(platform.texture, platform.x, platform.y, platform.width, platform.height);
             }
         });
 
-        // Restore context to remove the camera translate effect.
         this.ctx.restore();
     }
 
@@ -208,7 +211,7 @@ export class Blueberry {
                     }
                 } else {
                     if (this.player.y < platform.y) {
-                        if (this.player.dy > 0) { // Bounce only if falling and rolling
+                        if (this.player.dy > 0) {
                             this.player.y = platform.y - this.player.height;
                             this.player.dy = this.player.isRolling ? -this.player.dy * 0.8 : 0;
                             onAnyPlatform = true;
@@ -241,7 +244,7 @@ export class Blueberry {
             }
             this.player.isRolling = this.keys["r"];
             if (!this.keys["r"]) {
-                this.player.rotation = 0; // Reset rotation when stopping roll
+                this.player.rotation = 0;
             }
             this.player.dashPower = this.player.isRolling ? 18 : 10;
 
@@ -260,21 +263,15 @@ export class Blueberry {
         this.player.dy += this.gravity;
         this.player.x += this.player.dx;
         this.player.y += this.player.dy;
-        console.log(`Player delta ${this.player.dx} ${this.player.dy}`);
 
-        // Update the player's camera coordinates (centered on the player).
         this.player.camX = this.player.x - (this.canvas.width / 2 - this.player.width / 2);
         this.player.camY = this.player.y - (this.canvas.height / 2 - this.player.height / 2);
 
-        // Calculate and store maxPlayerCamY in the player's properties.
         this.player.maxPlayerCamY = this.mapHeight - (this.canvas.height + this.player.camYHide);
-
-        // Clamp the player's camY so it doesn't exceed the bottom of the map.
         if (this.player.camY > this.player.maxPlayerCamY) {
             this.player.camY = this.player.maxPlayerCamY;
         }
 
-        // Use the player's camera values for the overall viewport.
         this.cameraX = this.player.camX;
         this.cameraY = this.player.camY;
 

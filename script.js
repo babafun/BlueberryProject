@@ -1,4 +1,5 @@
-import * as blueberryModule from './blueberry_class_definition.js'; // Ensure correct import path
+// @ts-check
+import * as blueberryModule from './.blueberry-class/blueberry-class.js'; // Ensure correct import path
 
 // Create a function to load a texture based on its identifier
 const createTexture = (textureId) => {
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(levels); // Check how many levels are present
 
             // Prompt the user to enter a level ID based on available levels
-            answer = prompt(`Enter level ID (between 0 and ${levels.length - 1}):`, "0");
+            answer = prompt(`Enter level ID (between 0 and ${levels.length - 1}):`, "0") + "";
             try {
                 levelIndex = parseInt(answer);
                 if (isNaN(levelIndex) || levelIndex < 0 || levelIndex >= levels.length) {
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (totalTextures === 0) {
                 console.log('No platforms to load, starting game immediately...');
-                window.blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry", 150);
+                /** @type {any} */ (window).blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry", 150);
             } else {
                 platforms.forEach(platform => {
                     platform.texture.onload = () => {
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log(`Texture loaded: ${texturesLoaded}/${totalTextures}`);
                         if (texturesLoaded === totalTextures) {
                             console.log('All textures loaded. Starting game...');
-                            window.blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry", 150);
+                            /** @type {any} */ (window).blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry", 150);
                         }
                     };
                     platform.texture.onerror = () => {
