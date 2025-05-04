@@ -1,4 +1,5 @@
 // @ts-check
+/// <reference path="./blueberry-class.d.ts" />
 /** @typedef {{ x: number, y: number, width: number, height: number, texture: HTMLImageElement }} Platform */
 /** @typedef {{ x: number, y: number, width: number, height: number, speed: number, dx: number, dy: number, camX: number, camY: number, camYHide: number, jumpPower: number, onGround: boolean, canWallJump: boolean, wallJumpDirection: number, isDashing: boolean, dashPower: number, dashLength: number, dashCooldown: number, lastDash: number, running: boolean, isRolling: boolean, currentFrame: HTMLImageElement, frameCount: number, frameDuration: number, airDashCooldown: boolean, direction: number, rotation: number, maxPlayerCamY?: number }} Player */
 

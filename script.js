@@ -1,5 +1,18 @@
 // @ts-check
 import * as blueberryModule from './.blueberry-class/blueberry-class.js'; // Ensure correct import path
+import { validateData } from './validate.js';  // Import the validateData function
+
+// Fetch the shapes from the shapes.json file
+let shapes = {};
+
+fetch('validation-types.json')
+    .then(response => response.json())
+    .then(json => {
+        shapes = json; // Store the shapes definitions
+    })
+    .catch(error => {
+        console.error('Failed to load shapes:', error);
+    });
 
 // Create a function to load a texture based on its identifier
 const createTexture = (textureId) => {
@@ -37,11 +50,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isNaN(levelIndex) || levelIndex < 0 || levelIndex >= levels.length) {
                     throw new Error('Invalid level ID! Please enter a valid level ID.');
                 }
-                // Map the levels to include the appropriate texture
-                platforms = levels[levelIndex].map(platform => ({
-                    ...platform,
-                    texture: createTexture(platform.texture)
-                }));
+
+                // Map the levels to include the appropriate texture and validate the platform shape
+                platforms = levels[levelIndex].map(platform => {
+                    try {
+                        // Validate the platform object against the platform shape
+                        validateData(platform, shapes.platform);
+
+                        // Add the texture once validated
+                        return {
+                            ...platform,
+                            texture: createTexture(platform.texture)
+                        };
+                    } catch (error) {
+                        console.error('Invalid platform data:', error);
+                        return {};  // Return an empty object on validation failure (you can handle this differently if needed)
+                    }
+                });
             } catch (error) {
                 alert('Invalid level ID. Please refresh and try again.');
                 console.error(error);
