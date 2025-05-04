@@ -1,4 +1,4 @@
-Set-Location -Path $PSScriptRoot
+Set-Location -Path (Split-Path $PSScriptRoot -Parent)
 # Check if the script is running in a PowerShell session
 # Try to find Python (python, python3, or python2)
 $pythonCmds = @("python", "python3", "python2")
