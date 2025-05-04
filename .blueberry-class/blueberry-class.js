@@ -122,7 +122,6 @@ export class Blueberry {
     handleKeyDown(e) {
         this.keys[e.key] = true;
         this.keys[e.code] = true;
-        this.keys[e.keyCode.toString()] = true;
 
         if (e.key === "e") {
             if (!this.player.isDashing) {
