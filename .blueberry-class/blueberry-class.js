@@ -1,3 +1,4 @@
+// @ts-check
 /** @typedef {{ x: number, y: number, width: number, height: number, texture: HTMLImageElement }} Platform */
 /** @typedef {{ x: number, y: number, width: number, height: number, speed: number, dx: number, dy: number, camX: number, camY: number, camYHide: number, jumpPower: number, onGround: boolean, canWallJump: boolean, wallJumpDirection: number, isDashing: boolean, dashPower: number, dashLength: number, dashCooldown: number, lastDash: number, running: boolean, isRolling: boolean, currentFrame: HTMLImageElement, frameCount: number, frameDuration: number, airDashCooldown: boolean, direction: number, rotation: number, maxPlayerCamY?: number }} Player */
 
@@ -9,10 +10,22 @@ export class Blueberry {
      * @param {number} [clampCamY=150]
      */
     constructor(canvasId, platforms, costume, clampCamY = 150) {
-        /** @type {HTMLCanvasElement} */
-        this.canvas = document.getElementById(canvasId);
-        /** @type {CanvasRenderingContext2D} */
-        this.ctx = this.canvas.getContext("2d");
+        let canvasElement;
+        try {
+            canvasElement = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasId));
+            if (!(canvasElement instanceof HTMLCanvasElement)) throw new Error();
+        } catch (error) {
+            throw new Error(`Element with id "${canvasId}" is not a valid canvas element.`);
+        }
+        this.canvas = canvasElement;
+        let ctx;
+        try {
+            ctx = /** @type {CanvasRenderingContext2D} */ (this.canvas.getContext("2d"));
+            if (!ctx) throw new Error();
+        } catch (error) {
+            throw new Error("Cannot obtain 2D context from the canvas element.");
+        }
+        this.ctx = ctx;
         this.costume = costume;
         this.platforms = platforms;
 
@@ -95,7 +108,7 @@ export class Blueberry {
         this.friction = 0.8;
         this.rollingSpeedMultiplier = 0.8;
 
-        this.keys = {};
+        this.keys = /** @type {Record<string, boolean>} */ ({});
 
         document.addEventListener("keydown", (e) => this.handleKeyDown(e));
         document.addEventListener("keyup", (e) => this.handleKeyUp(e));
@@ -109,7 +122,7 @@ export class Blueberry {
     handleKeyDown(e) {
         this.keys[e.key] = true;
         this.keys[e.code] = true;
-        this.keys[e.keyCode] = true;
+        this.keys[e.keyCode.toString()] = true;
 
         if (e.key === "e") {
             if (!this.player.isDashing) {
@@ -135,7 +148,7 @@ export class Blueberry {
     handleKeyUp(e) {
         this.keys[e.key] = false;
         this.keys[e.code] = false;
-        this.keys[e.keyCode] = false;
+        this.keys[e.keyCode.toString()] = false;
     }
 
     drawNextFrame() {
