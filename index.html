@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML5//EN" "http://www.w3.org/TR/html5/">
+<html lang="en-GB" type="text/html">
 <head>
   <!-- Character set and viewport -->
   <meta charset="utf-8">
@@ -23,15 +23,15 @@
   <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon/apple-touch-icon-120x120.png">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" type="text/css" media="screen">
   
   <!-- Progressive Web App manifest -->
-  <link rel="manifest" href="site.webmanifest">
+  <link rel="manifest" href="site.webmanifest" type="application/manifest+json">
   
   <!-- Preconnect & Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" type="text/css" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" type="text/css">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:title" content="2D Platformer">
@@ -48,6 +48,10 @@
 </head>
 <body>
   <canvas id="gameCanvas" width="800" height="600"></canvas>
-  <script type="module" src="script.js"></script>
+  <script type="module" src="script.js" type="text/javascript"></script>
+  <noscript>
+    <div class="noscript-message">
+      <p>JavaScript is required to play this game. Please enable JavaScript in your browser settings, or GET A NEWER BROWSER.</p>
+    </div>
 </body>
 </html>

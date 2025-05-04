@@ -1,0 +1,11 @@
+{
+    "platform": {
+      "texture": "string",
+      "position": "object",
+      "size": "object"
+    },
+    "level": {
+      "id": "number",
+      "platforms": "array"
+    }
+  }

@@ -1,7 +1,32 @@
+// @ts-check
+/// <reference path="./blueberry-class.d.ts" />
+/** @typedef {{ x: number, y: number, width: number, height: number, texture: HTMLImageElement }} Platform */
+/** @typedef {{ x: number, y: number, width: number, height: number, speed: number, dx: number, dy: number, camX: number, camY: number, camYHide: number, jumpPower: number, onGround: boolean, canWallJump: boolean, wallJumpDirection: number, isDashing: boolean, dashPower: number, dashLength: number, dashCooldown: number, lastDash: number, running: boolean, isRolling: boolean, currentFrame: HTMLImageElement, frameCount: number, frameDuration: number, airDashCooldown: boolean, direction: number, rotation: number, maxPlayerCamY?: number }} Player */
+
 export class Blueberry {
-    constructor(canvasId, platforms, costume) {
-        this.canvas = document.getElementById(canvasId);
-        this.ctx = this.canvas.getContext("2d");
+    /**
+     * @param {string} canvasId
+     * @param {Platform[]} platforms
+     * @param {"blueberry" | "cat" | string} costume
+     * @param {number} [clampCamY=150]
+     */
+    constructor(canvasId, platforms, costume, clampCamY = 150) {
+        let canvasElement;
+        try {
+            canvasElement = /** @type {HTMLCanvasElement} */ (document.getElementById(canvasId));
+            if (!(canvasElement instanceof HTMLCanvasElement)) throw new Error();
+        } catch (error) {
+            throw new Error(`Element with id "${canvasId}" is not a valid canvas element.`);
+        }
+        this.canvas = canvasElement;
+        let ctx;
+        try {
+            ctx = /** @type {CanvasRenderingContext2D} */ (this.canvas.getContext("2d"));
+            if (!ctx) throw new Error();
+        } catch (error) {
+            throw new Error("Cannot obtain 2D context from the canvas element.");
+        }
+        this.ctx = ctx;
         this.costume = costume;
         this.platforms = platforms;
 
@@ -45,6 +70,7 @@ export class Blueberry {
         this.startX = 150;
         this.startY = platforms[0].y - 50;
 
+        /** @type {Player} */
         this.player = {
             x: this.startX,
             y: this.startY,
@@ -55,6 +81,7 @@ export class Blueberry {
             dy: 0,
             camX: this.startX,
             camY: this.startY,
+            camYHide: clampCamY,
             jumpPower: 15,
             onGround: false,
             canWallJump: false,
@@ -70,29 +97,32 @@ export class Blueberry {
             frameCount: 0,
             frameDuration: this.costume === "cat" ? 2 : 6,
             airDashCooldown: false,
-            direction: 1, // 1 for right, -1 for left
-            rotation: 0 // Initial rotation angle
+            direction: 1,
+            rotation: 0
         };
+
+        this.cameraX = 0;
+        this.cameraY = 0;
+        this.mapHeight = Math.max(...this.platforms.map(p => p.y + p.height));
 
         this.gravity = 0.8;
         this.friction = 0.8;
-        this.rollingSpeedMultiplier = 0.8; // Rolling speed reduction
+        this.rollingSpeedMultiplier = 0.8;
 
-        this.keys = {};
+        this.keys = /** @type {Record<string, boolean>} */ ({});
 
         document.addEventListener("keydown", (e) => this.handleKeyDown(e));
         document.addEventListener("keyup", (e) => this.handleKeyUp(e));
 
-        // Ensure images are loaded before starting the update loop
         this.idleFrame.onload = () => {
             this.update();
         };
     }
 
+    /** @param {KeyboardEvent} e */
     handleKeyDown(e) {
         this.keys[e.key] = true;
         this.keys[e.code] = true;
-        this.keys[e.keyCode] = true;
 
         if (e.key === "e") {
             if (!this.player.isDashing) {
@@ -114,31 +144,43 @@ export class Blueberry {
         }
     }
 
+    /** @param {KeyboardEvent} e */
     handleKeyUp(e) {
         this.keys[e.key] = false;
         this.keys[e.code] = false;
-        this.keys[e.keyCode] = false;
+        this.keys[e.keyCode.toString()] = false;
     }
 
     drawNextFrame() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+        this.ctx.save();
+        this.ctx.translate(-this.cameraX, -this.cameraY);
+
         if (this.player.isRolling) {
             this.player.currentFrame = this.rollingFrame;
-            this.player.rotation += 3 * this.player.dx; // Rotate during rolling
+            this.player.rotation += 3 * this.player.dx;
         } else if (this.player.running) {
             this.player.frameCount++;
-            this.player.currentFrame = this.runningFrames[Math.floor(this.player.frameCount / this.player.frameDuration) % this.runningFrames.length];
+            this.player.currentFrame = this.runningFrames[
+                Math.floor(this.player.frameCount / this.player.frameDuration) % this.runningFrames.length
+            ];
         } else {
             this.player.currentFrame = this.idleFrame;
-            this.player.rotation = 0; // Reset rotation when not rolling
+            this.player.rotation = 0;
         }
 
         this.ctx.save();
         this.ctx.translate(this.player.x + this.player.width / 2, this.player.y + this.player.height / 2);
-        this.ctx.rotate(this.player.rotation * Math.PI / 180); // Apply rotation
+        this.ctx.rotate(this.player.rotation * Math.PI / 180);
         this.ctx.scale(this.player.direction, 1);
-        this.ctx.drawImage(this.player.currentFrame, -this.player.width / 2, -this.player.height / 2, this.player.width, this.player.height);
+        this.ctx.drawImage(
+            this.player.currentFrame,
+            -this.player.width / 2,
+            -this.player.height / 2,
+            this.player.width,
+            this.player.height
+        );
         this.ctx.restore();
 
         this.platforms.forEach(platform => {
@@ -146,6 +188,8 @@ export class Blueberry {
                 this.ctx.drawImage(platform.texture, platform.x, platform.y, platform.width, platform.height);
             }
         });
+
+        this.ctx.restore();
     }
 
     checkCollisions() {
@@ -154,11 +198,19 @@ export class Blueberry {
         this.player.wallJumpDirection = 0;
 
         this.platforms.forEach(platform => {
-            if (this.player.x < platform.x + platform.width && this.player.x + this.player.width > platform.x &&
-                this.player.y < platform.y + platform.height && this.player.y + this.player.height > platform.y) {
+            if (this.player.x < platform.x + platform.width && 
+                this.player.x + this.player.width > platform.x &&
+                this.player.y < platform.y + platform.height && 
+                this.player.y + this.player.height > platform.y) {
 
-                const overlapX = Math.min(this.player.x + this.player.width - platform.x, platform.x + platform.width - this.player.x);
-                const overlapY = Math.min(this.player.y + this.player.height - platform.y, platform.y + platform.height - this.player.y);
+                const overlapX = Math.min(
+                    this.player.x + this.player.width - platform.x, 
+                    platform.x + platform.width - this.player.x
+                );
+                const overlapY = Math.min(
+                    this.player.y + this.player.height - platform.y, 
+                    platform.y + platform.height - this.player.y
+                );
 
                 if (overlapX < overlapY) {
                     if (this.player.x < platform.x) {
@@ -172,7 +224,7 @@ export class Blueberry {
                     }
                 } else {
                     if (this.player.y < platform.y) {
-                        if (this.player.dy > 0) { // Bounce only if falling and rolling
+                        if (this.player.dy > 0) {
                             this.player.y = platform.y - this.player.height;
                             this.player.dy = this.player.isRolling ? -this.player.dy * 0.8 : 0;
                             onAnyPlatform = true;
@@ -205,7 +257,7 @@ export class Blueberry {
             }
             this.player.isRolling = this.keys["r"];
             if (!this.keys["r"]) {
-                this.player.rotation = 0; // Reset rotation when stopping roll
+                this.player.rotation = 0;
             }
             this.player.dashPower = this.player.isRolling ? 18 : 10;
 
@@ -224,7 +276,17 @@ export class Blueberry {
         this.player.dy += this.gravity;
         this.player.x += this.player.dx;
         this.player.y += this.player.dy;
-        console.log(`Player delta ${this.player.dx} ${this.player.dy}`);
+
+        this.player.camX = this.player.x - (this.canvas.width / 2 - this.player.width / 2);
+        this.player.camY = this.player.y - (this.canvas.height / 2 - this.player.height / 2);
+
+        this.player.maxPlayerCamY = this.mapHeight - (this.canvas.height + this.player.camYHide);
+        if (this.player.camY > this.player.maxPlayerCamY) {
+            this.player.camY = this.player.maxPlayerCamY;
+        }
+
+        this.cameraX = this.player.camX;
+        this.cameraY = this.player.camY;
 
         if (this.player.y > this.canvas.height) {
             this.player.x = this.startX;
