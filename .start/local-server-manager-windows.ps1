@@ -1,5 +1,6 @@
+# Move to the parent directory of the .start folder
 Set-Location -Path (Split-Path $PSScriptRoot -Parent)
-# Check if the script is running in a PowerShell session
+
 # Try to find Python (python, python3, or python2)
 $pythonCmds = @("python", "python3", "python2")
 $python = $null
@@ -17,12 +18,18 @@ if (-not $python) {
     exit 1
 }
 
-# Find the first available port starting at 5500
+# Find the first available port starting at 5500, up to 65535
 $port = 5500
-while ($true) {
+$maxPort = 65535
+while ($port -le $maxPort) {
     $inUse = Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
     if (-not $inUse) { break }
     $port++
+}
+
+if ($port -gt $maxPort) {
+    Write-Error "[X] No available ports. All ports are in use."
+    exit 1
 }
 
 # Start the Python HTTP server on the available port
