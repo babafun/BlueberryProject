@@ -1,8 +1,10 @@
 {
     "platform": {
       "texture": "string",
-      "position": "object",
-      "size": "object"
+      "x": "number",
+      "y": "number",
+      "width": "number", 
+      "height": "number"
     },
     "level": {
       "id": "number",
