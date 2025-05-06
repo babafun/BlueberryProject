@@ -44,13 +44,13 @@ JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 [
    
     [
-        { "texture": "grass", "x": 0, "y": 550, "width": 800, "height": 200 }, // Ground platform for level 1
+        { "texture": "grass", "x": -1000000000, "y": 550, "width": 800000000000, "height": 200 }, // Ground platform for level 1
         { "texture": "grass", "x": 400, "y": 450, "width": 200, "height": 20 },
         { "texture": "grass", "x": 100, "y": 300, "width": 250, "height": 20 },
         { "texture": "grass", "x": 300, "y": 100, "width": 300, "height": 20 }
     ],
     [
-        { "texture": "grass", "x": 0, "y": 580, "width": 800, "height": 200 }, // Ground platform for level 2
+        { "texture": "grass", "x": -1000000000000000, "y": 580, "width": 8000000000000000, "height": 200 }, // Ground platform for level 2
         { "texture": "grass", "x": 100, "y": 500, "width": 150, "height": 20 },
         { "texture": "grass", "x": 350, "y": 400, "width": 150, "height": 20 },
         { "texture": "grass", "x": 600, "y": 300, "width": 200, "height": 20 },
@@ -66,7 +66,7 @@ JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
         // NEW HUGE LEVEL - Minimum 30 platforms; ground at y=550 and no platform is below y=550.
         // Platforms are arranged so that the ground (platform 1) is at y=550, and subsequent platforms are placed above it.
         // Here, we use a formula: for i from 1 to 30, each platform's y = 550 – (i-1)*140 and x = (i-1)*300.
-        { "texture": "grass", "x": -1000,    "y": 550,   "width": 50000, "height": 200 }, // Platform 1: Ground platform
+        { "texture": "grass", "x": -100000000000000000,    "y": 550,   "width": 50000000000000000, "height": 200 }, // Platform 1: Ground platform
         { "texture": "grass", "x": 300,  "y": 410,   "width": 300,  "height": 20  }, // Platform 2
         { "texture": "grass", "x": 600,  "y": 270,   "width": 300,  "height": 20  }, // Platform 3
         { "texture": "grass", "x": 900,  "y": 130,   "width": 300,  "height": 20  }, // Platform 4
