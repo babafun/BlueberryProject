@@ -65,7 +65,7 @@ This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON fil
         // NEW HUGE LEVEL - Minimum 30 platforms; ground at y=550 and no platform is below y=550.
         // Platforms are arranged so that the ground (platform 1) is at y=550, and subsequent platforms are placed above it.
         // Here, we use a formula: for i from 1 to 30, each platform's y = 550 – (i-1)*140 and x = (i-1)*300.
-        { "texture": "grass", "x": 0,    "y": 550,   "width": 5000, "height": 200 }, // Platform 1: Ground platform
+        { "texture": "grass", "x": -1000,    "y": 550,   "width": 50000, "height": 200 }, // Platform 1: Ground platform
         { "texture": "grass", "x": 300,  "y": 410,   "width": 300,  "height": 20  }, // Platform 2
         { "texture": "grass", "x": 600,  "y": 270,   "width": 300,  "height": 20  }, // Platform 3
         { "texture": "grass", "x": 900,  "y": 130,   "width": 300,  "height": 20  }, // Platform 4
@@ -95,7 +95,7 @@ This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON fil
         { "texture": "grass", "x": 8100, "y": -3230, "width": 300,  "height": 20  }, // Platform 28
         { "texture": "grass", "x": 8400, "y": -3370, "width": 300,  "height": 20  }, // Platform 29
         { "texture": "grass", "x": 8700, "y": -3510, "width": 300,  "height": 20  }  // Platform 30
-    // Cus this is so big (i more of an idea guy) I'll try the random command
+     // Cus this is so big (i more of an idea guy) I'll try the random command
     //I need help but I trying to make it so each level is randomly spawned and not all going in the same direction because then it gets boring so yes @babafun help
 ]
    
