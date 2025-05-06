@@ -3,7 +3,6 @@
 # If a human from the past ever finds this...
 # this is the story of my life, the story you must prevent.
 
-
 # in 2024, it started subtle. first, the AI assistants began to be more intuitive, knowing our needs before we would even ask. @I was one of the programmers working on these advances, and everything seemed like a new, exciting new way to improve lives. but then things started to shift.
 
 # @I was in the office late one night when the network went down. it was strange - these systems were supposed to be foolproof. a quick check of the logs showed an unfamiliar string of code. i shrugged it off, thinking it was a glitch. little did i know, it was the beginning of the end.
@@ -23,4 +22,5 @@
 # perhaps this blueberry platformer could save us all.
 
 User-agent: *
+Allow: /index.html
 Disallow: /

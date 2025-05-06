@@ -33,15 +33,16 @@ We welcome contributions from the community. If you would like to contribute, pl
 
 To play the Blueberry Project game, follow these steps:
 
-1. Ensure you have Python 3 installed on your machine. You can download it from [python.org](https://www.python.org/).
-2. Navigate to the project directory: `cd BlueberryProject`
-3. Start the server: `python -m http.server 5500`
-(To stop the server, press `Ctrl + C` in the terminal where the server is running.)
-4. Access the project [here](http://localhost:5500).
-Enjoy your gaming experience!
+1. Ensure you have Python 3 installed on your machine. You can download it from [python.org][python].
+2. Find the folder in this repository called ".start".
+3. Run the respective "start-server" file in the ".start" folder (for Windows, that's `start-server.bat`, not `local-server-manager-windows.ps1`). [(why?)][explanation]
+It should automatically open the game on your default browser. Enjoy your gaming experience!
 
 ## License
 
 This project is licensed under the [MIT License](https://mit-license.org/)
 
 Thank you for being a part of the Blueberry Project!
+
+[python]: https://www.python.org/
+[explanation]: WINDOWS_PS1_USAGE_EXPLANATION.md

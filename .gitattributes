@@ -1,6 +1,5 @@
 # Auto detect text files and perform LF normalization
-# Auto detect text files and perform LF normalization
-* text=auto
+* text eol=Auto
 
 # Set default behavior for certain file types
 *.c     text
@@ -16,6 +15,14 @@
 *.json  text
 *.xml   text
 *.md    text
+.gitignore text eol=crlf
+*.yml   text
+*.yaml  text
+*.sh    text eol=lf
+*.command text eol=lf
+*.bat   text eol=crlf
+*.ps1   text eol=crlf
+*.sql   text
 
 # Handle binary files
 *.png   binary

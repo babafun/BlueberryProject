@@ -1,0 +1,11 @@
+{
+  "name": "blueberryproject",
+  "version": "1.0.0",
+  "description": "Blueberry Platformer Project",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "",
+  "license": "MIT"
+}

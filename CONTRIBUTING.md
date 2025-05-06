@@ -1,6 +1,6 @@
 # Contributing to Hackathon Project
 
-Thank you for considering contributing to our Hackathon Project! Here are some guidelines to help you get started.
+Thank you for considering contributing to our Blueberry Project! Here are some guidelines to help you get started.
 
 ## How to Contribute
 
