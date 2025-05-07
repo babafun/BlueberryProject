@@ -38,6 +38,8 @@ return platforms;
 
 const level3 = generatePlatforms(40); // Boom Bralen, I just took some coding help from gpt but it should work but you double check it.
 console.log(level3);
+This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON file with comments. That means scripts like the one above won't work in this file. You need to generate the platforms in a different way.
+JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 */
 
 [
