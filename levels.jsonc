@@ -1,4 +1,3 @@
-
 /*function generatePlatforms(count = 30, startX = 300, startY = 550, stepMin = 20, stepMax = 50, yStep = 140) {
     const platforms = [];
 
@@ -46,6 +45,18 @@ This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON fil
     [
         { "texture": "grass", "x": 0, "y": 550, "width": 800, "height": 200 }, // Ground platform for level 1
         { "texture": "grass", "x": 400, "y": 450, "width": 200, "height": 20 },
+        { "texture": "grass", "x": 100, "y": 300, "width": 250, "height": 20 },
+        { "texture": "grass", "x": 300, "y": 100, "width": 300, "height": 20 }
+    ],
+    [
+        { "texture": "grass", "x": 0, "y": 580, "width": 800, "height": 200 }, // Ground platform for level 2
+        { "texture": "grass", "x": 100, "y": 500, "width": 150, "height": 20 },
+        { "texture": "grass", "x": 350, "y": 400, "width": 150, "height": 20 },
+        { "texture": "grass", "x": 600, "y": 300, "width": 200, "height": 20 },
+        { "texture": "grass", "x": 200, "y": 200, "width": 250, "height": 20 },
+        { "texture": "grass", "x": 500, "y": 80, "width": 150, "height": 20 },
+        { "texture": "grass", "x": 400, "y": 500, "width": 150, "height": 20 },
+        { "texture": "grass", "x": 50, "y": 255, "width": 150, "height": 20 },
         { "texture": "grass", "x": 250, "y": 200, "width": 100, "height": 20 },
         { "texture": "grass", "x": 300, "y": 50, "width": 100, "height": 20 }
     ],
@@ -56,7 +67,7 @@ This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON fil
         // Here, we use a formula: for i from 1 to 30, each platform's y = 550 – (i-1)*140 and x = (i-1)*300.
         { "texture": "grass", "x": 0,    "y": 550,   "width": 5000, "height": 200 }, // Platform 1: Ground platform
         { "texture": "grass", "x": 300,  "y": 410,   "width": 300,  "height": 20  }, // Platform 2
-        { "texture": "grass", "x": 1000,  "y": 270,   "width": 300,  "height": 20  }, // Platform 3
+        { "texture": "grass", "x": 600,  "y": 270,   "width": 300,  "height": 20  }, // Platform 3
         { "texture": "grass", "x": 900,  "y": 130,   "width": 300,  "height": 20  }, // Platform 4
         { "texture": "grass", "x": 1200, "y": -10,   "width": 300,  "height": 20  }, // Platform 5
         { "texture": "grass", "x": 1500, "y": -150,  "width": 300,  "height": 20  }, // Platform 6
@@ -84,7 +95,6 @@ This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON fil
         { "texture": "grass", "x": 8100, "y": -3230, "width": 300,  "height": 20  }, // Platform 28
         { "texture": "grass", "x": 8400, "y": -3370, "width": 300,  "height": 20  }, // Platform 29
         { "texture": "grass", "x": 8700, "y": -3510, "width": 300,  "height": 20  }  // Platform 30
-    ]
     // Cus this is so big (i more of an idea guy) I'll try the random command
     //I need help but I trying to make it so each level is randomly spawned and not all going in the same direction because then it gets boring so yes @babafun help
 ]
