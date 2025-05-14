@@ -38,31 +38,31 @@ export class Blueberry {
         this.idleFrame.crossOrigin = "anonymous";
         this.rollingFrame = new Image();
         this.rollingFrame.crossOrigin = "anonymous";
-        this.rollingFrame.src = "The BlueBerry/roll.svg";
+        this.rollingFrame.src = "Assets/The BlueBerry/roll.svg";
 
         this.runningFrames = [];
         if (this.costume === "blueberry") {
-            this.idleFrame.src = "The BlueBerry/stand.svg";
+            this.idleFrame.src = "Assets/The BlueBerry/stand.svg";
             for (let i = 1; i <= 2; i++) {
                 const runningFrame = new Image();
                 runningFrame.crossOrigin = "anonymous";
-                runningFrame.src = `The BlueBerry/run${i}.svg`;
+                runningFrame.src = `Assets/The BlueBerry/run${i}.svg`;
                 this.runningFrames.push(runningFrame);
             }
         } else if (this.costume === "cat") {
-            this.idleFrame.src = "ScratchCat/stand.svg";
+            this.idleFrame.src = "Assets/ScratchCat/stand.svg";
             for (let i = 1; i <= 16; i++) {
                 const runningFrame = new Image();
                 runningFrame.crossOrigin = "anonymous";
-                runningFrame.src = `ScratchCat/run-${i}.svg`;
+                runningFrame.src = `Assets/ScratchCat/run-${i}.svg`;
                 this.runningFrames.push(runningFrame);
             }
         } else {
-            this.idleFrame.src = "The PurpleBerry/stand.svg";
+            this.idleFrame.src = "Assets/The PurpleBerry/stand.svg";
             for (let i = 1; i <= 2; i++) {
                 const runningFrame = new Image();
                 runningFrame.crossOrigin = "anonymous";
-                runningFrame.src = `The PurpleBerry/run${i}.svg`;
+                runningFrame.src = `Assets/The PurpleBerry/run${i}.svg`;
                 this.runningFrames.push(runningFrame);
             }
         }
