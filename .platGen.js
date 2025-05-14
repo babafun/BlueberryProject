@@ -1,4 +1,4 @@
-console.log("potato filler random ahh")
+/* console.log("potato filler random ahh")
 
 
 function generatePlatforms(count = 30, startX = 300, startY = 550, stepMin = 20, stepMax = 50, yStep = 140) {
@@ -39,5 +39,5 @@ return platforms;
 }
 
 const level3 = generatePlatforms(40); // Boom Bralen, I just took some coding help from gpt but it should work but you double check it.
-console.log(level3);
+console.log(level3); */
 
