@@ -38,6 +38,7 @@ return platforms;
 const level3 = generatePlatforms(40); // Boom Bralen, I just took some coding help from gpt but it should work but you double check it.
 console.log(level3);
 This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON file with comments. That means scripts like the one above won't work in this file. You need to generate the platforms in a different way.
+JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 */
 
 [
@@ -61,7 +62,7 @@ This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON fil
         { "texture": "grass", "x": 300, "y": 50, "width": 100, "height": 20 }
     ],
     [ 
-    [
+    
         // NEW HUGE LEVEL - Minimum 30 platforms; ground at y=550 and no platform is below y=550.
         // Platforms are arranged so that the ground (platform 1) is at y=550, and subsequent platforms are placed above it.
         // Here, we use a formula: for i from 1 to 30, each platform's y = 550 – (i-1)*140 and x = (i-1)*300.
@@ -97,8 +98,9 @@ This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON fil
         { "texture": "grass", "x": 8700, "y": -3510, "width": 300,  "height": 20  }  // Platform 30
     // Cus this is so big (i more of an idea guy) I'll try the random command
     //I need help but I trying to make it so each level is randomly spawned and not all going in the same direction because then it gets boring so yes @babafun help
-]
+
    
    
  
+]
 ]
