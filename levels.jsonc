@@ -38,7 +38,7 @@ return platforms;
 const level3 = generatePlatforms(40); // Boom Bralen, I just took some coding help from gpt but it should work but you double check it.
 console.log(level3);
 This is a JSONC file, @Darknestrest. It's not a JavaScript file. It's a JSON file with comments. That means scripts like the one above won't work in this file. You need to generate the platforms in a different way.
-JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE - Ehan was hear.
 */
 
 [
@@ -102,5 +102,18 @@ JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
    
    
  
+
 ]
+
+],
+    [
+        { "texture": "grass", "x": 0, "y": 550, "width": 800, "height": 200 }, 
+        { "texture": "grass", "x": 300, "y": 400, "width": 200, "height": 20, "moveType": "horizontal", "moveSpeed": 1, "moveRange": 150 },
+        { "texture": "grass", "x": 600, "y": 300, "width": 200, "height": 20, "moveType": "vertical", "moveSpeed": 0.8, "moveRange": 100 },
+        { "texture": "grass", "x": 100, "y": 200, "width": 150, "height": 20, "moveType": "horizontal", "moveSpeed": 1.2, "moveRange": 200 },
+        { "texture": "grass", "x": 400, "y": 150, "width": 150, "height": 20, "moveType": "vertical", "moveSpeed": 1.5, "moveRange": 80 },
+        { "texture": "grass", "x": 700, "y": 100, "width": 200, "height": 20 },
+        { "texture": "grass", "x": 200, "y": 50, "width": 150, "height": 20, "moveType": "horizontal", "moveSpeed": 0.7, "moveRange": 120 }
+    ]
+
 ]
