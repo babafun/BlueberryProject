@@ -102,18 +102,5 @@ JOEYCODES268 WAS HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE - E
    
    
  
-
 ]
-
-],
-    [
-        { "texture": "grass", "x": 0, "y": 550, "width": 800, "height": 200 }, 
-        { "texture": "grass", "x": 300, "y": 400, "width": 200, "height": 20, "moveType": "horizontal", "moveSpeed": 1, "moveRange": 150 },
-        { "texture": "grass", "x": 600, "y": 300, "width": 200, "height": 20, "moveType": "vertical", "moveSpeed": 0.8, "moveRange": 100 },
-        { "texture": "grass", "x": 100, "y": 200, "width": 150, "height": 20, "moveType": "horizontal", "moveSpeed": 1.2, "moveRange": 200 },
-        { "texture": "grass", "x": 400, "y": 150, "width": 150, "height": 20, "moveType": "vertical", "moveSpeed": 1.5, "moveRange": 80 },
-        { "texture": "grass", "x": 700, "y": 100, "width": 200, "height": 20 },
-        { "texture": "grass", "x": 200, "y": 50, "width": 150, "height": 20, "moveType": "horizontal", "moveSpeed": 0.7, "moveRange": 120 }
-    ]
-
 ]
