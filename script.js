@@ -1,8 +1,8 @@
 // @ts-check
-import * as blueberryModule from './.blueberry-class/blueberry-class.js'; // Ensure correct import path
-import { validateData } from './validate.js';  // Import the validateData function
+import * as blueberryModule from './.blueberry-class/blueberry-class.js'; // Your main game module
+import { validateData } from './validate.js';  // Validation function
+import { startTextAdventure } from './textadventure.js'; // Import text adventure function
 
-// Create a function to load a texture based on its identifier
 const createTexture = (textureId) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
@@ -10,10 +10,10 @@ const createTexture = (textureId) => {
         case 'grass':
             img.src = 'grass.png';
             break;
-        // Add more cases here for different textures
+        // Add more cases for other textures here
         default:
             console.error(`Unknown texture ID: ${textureId}`);
-            img.src = 'fallback.png'; // Fallback texture
+            img.src = 'fallback.png';
     }
     return img;
 };
@@ -22,7 +22,6 @@ let answer = "";
 let levelIndex = 0;
 let platforms = [];
 
-// Wait for the DOM to be fully loaded before fetching resources
 document.addEventListener('DOMContentLoaded', () => {
     Promise.all([
         fetch('validation-types.json')
@@ -34,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('levels.jsonc')
             .then(response => response.text())
             .then(text => {
-                // Remove comments from JSONC and parse the cleaned string to JSON
                 const cleaned = text.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '');
                 return JSON.parse(cleaned);
             })
@@ -50,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Invalid level ID! Please enter a valid level ID.');
             }
 
-            // Map each platform to include a loaded texture and validate its shape
             platforms = levels[levelIndex].map(platform => {
                 try {
                     if (!shapes.platform) {
@@ -64,8 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                 } catch (error) {
                     console.error('Invalid platform data:', error);
-                    console.log('Invalid platform data.');
-                    return platform; // Return the original platform data if validation fails
+                    return platform;
                 }
             });
         } catch (error) {
@@ -74,13 +70,37 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Ensure all platform textures are loaded before starting the game
         let texturesLoaded = 0;
         const totalTextures = platforms.length;
 
+        const startGame = () => {
+            /** @type {any} */ (window).blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry", 150);
+
+            // Add Easter egg trigger method:
+// @ts-ignore
+window.blueberry.launchTextAdventure = () => {
+  // @ts-ignore
+  window.consoleGame = startTextAdventure();
+
+  // @ts-ignore
+  window.look = () => window.consoleGame.look();
+  // @ts-ignore
+  window.move = (dir) => window.consoleGame.move(dir);
+  // @ts-ignore
+  window.take = (item) => window.consoleGame.take(item);
+  // @ts-ignore
+  window.use = (item) => window.consoleGame.use(item);
+  // @ts-ignore
+  window.inventoryCheck = () => window.consoleGame.inventoryCheck();
+
+  console.log("Text Adventure started! Try commands like: look(), move('north'), take('stick'), use('stick'), inventoryCheck()");
+};
+            console.log("Psst! There's another game hidden here. Type blueberry.launchTextAdventure() in the console to start the secret text adventure!");
+        };
+
         if (totalTextures === 0) {
             console.log('No platforms to load, starting game immediately...');
-            /** @type {any} */ (window).blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry", 150);
+            startGame();
         } else {
             platforms.forEach(platform => {
                 platform.texture.onload = () => {
@@ -88,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log(`Texture loaded: ${texturesLoaded}/${totalTextures}`);
                     if (texturesLoaded === totalTextures) {
                         console.log('All textures loaded. Starting game...');
-                        /** @type {any} */ (window).blueberry = new blueberryModule.Blueberry("gameCanvas", platforms, "blueberry", 150);
+                        startGame();
                     }
                 };
                 platform.texture.onerror = () => {
