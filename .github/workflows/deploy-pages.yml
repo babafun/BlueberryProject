@@ -1,0 +1,93 @@
+# GitHub Actions workflow to run a headless browser test (stubbing prompt/alert)
+# so the game can start, then publish the static site to gh-pages (served at
+# https://babafun.github.io/BlueberryProject).
+#
+# What it does:
+# - spins up a simple static server for the repo
+# - installs Cypress and runs a test that stubs window.prompt/alert/confirm so the
+#   game receives the input it expects and can start
+# - if the test passes, publishes the repo contents to the gh-pages branch
+#   (project site URL: https://babafun.github.io/BlueberryProject)
+#
+# Note: The Cypress test looks for a game element (canvas, #game, or .level-start).
+# Adjust the selector in the inline test if your game uses a different element.
+
+name: Test + Deploy BlueberryProject to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Prepare runner (install Cypress + http-server)
+        run: |
+          # initialize a minimal package.json (workspace-only)
+          npm init -y
+          # install cypress and a tiny static server (no changes to repo files)
+          npm install cypress http-server --no-save
+          # create Cypress test directory and an integration test that stubs prompts/alerts
+          mkdir -p cypress/integration
+          cat > cypress/integration/start_level.spec.js <<'EOF'
+          describe('Start game with stubbed prompts', () => {
+            it('stubs prompt/alert/confirm so the level starts', () => {
+              cy.visit('http://localhost:8080', {
+                onBeforeLoad(win) {
+                  // Replace window.prompt to return a chosen level (adjust '1' as needed)
+                  cy.stub(win, 'prompt').returns('1');
+                  // Prevent blocking confirm/alert dialogs
+                  cy.stub(win, 'confirm').returns(true);
+                  cy.stub(win, 'alert').callsFake(() => {});
+                }
+              });
+              // Wait for an element that indicates the game/level has started.
+              // Adjust this selector to match your game's DOM (canvas, #game, etc.)
+              cy.get('canvas, #game, .level-start', { timeout: 10000 }).should('exist');
+            });
+          });
+          EOF
+
+      - name: Start static server
+        run: |
+          # serve repo root on port 8080 in background; disable caching (-c-1)
+          npx http-server -p 8080 -c-1 &
+          # give the server a moment to bind
+          sleep 2
+
+      - name: Run Cypress tests (headless)
+        env:
+          CI: true
+        run: |
+          # run Cypress tests in headless mode (uses Electron by default)
+          npx cypress run
+
+      - name: Deploy to GitHub Pages (gh-pages branch)
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # publish the repository root; adjust publish_dir if your site lives under docs/
+          publish_dir: ./
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          user_name: 'github-actions[bot]'
+          user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+          commit_message: 'ci: deploy BlueberryProject to gh-pages (via workflow)'
+
+      - name: Finished
+        if: success()
+        run: echo "Deployment completed. Project site should be available at https://babafun.github.io/BlueberryProject"
