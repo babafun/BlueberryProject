@@ -19,8 +19,7 @@ To get started with the Blueberry Project, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/babafun/BlueberryProject.git`
 2. Navigate to the project directory: `cd BlueberryProject`
-3. Install dependencies: `npm install`
-4. Start the development server: `npm start`
+3. Start the development server: `npm start`
 
 Or use GitHub Desktop (much easier, doesn't require Node.js npm)!
 
