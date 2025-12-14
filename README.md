@@ -1,6 +1,6 @@
 # Blueberry Project
 
-Welcome to the Blueberry Project! This project is part of the QE Hackathon and aims to provide an innovative gaming experience using cutting-edge technology.
+Welcome to the Blueberry Project! This project is part of the QE Hackathon (which didn't happen...they promised us) and aims to provide an open-source library allowing an innovative gaming experience using basic technology.
 
 ## Project Overview
 
@@ -39,6 +39,8 @@ To play the Blueberry Project game, follow these steps:
 2. Find the folder in this repository called ".start".
 3. Run the respective "start-server" file in the ".start" folder (for Windows, that's `start-server.bat`, not `local-server-manager-windows.ps1`). [(why?)][explanation]
 It should automatically open the game on your default browser. Enjoy your gaming experience!
+
+Or just play online at [babafun.github.io/BlueberryProject/](https://babafun.github.io/BlueberryProject/).
 
 ## License
 
