@@ -1,6 +1,6 @@
 # Art License
 
-While all the code is under GPLv3 by BlueberryProject Contributors, all the art in this repository is by @babafun only and is licensed under the CC BY-SA 4.0 license (except for a few exceptions, in **bold**).
+While all the code is under [GPLv3](LICENSE.md) by BlueberryProject Contributors, all the art in this repository is by @babafun only and is licensed under the CC BY-SA 4.0 license (except for a few exceptions, in **bold**).
 
 Credits:
 - the BlueBerry and the PurpleBerry are both derivatives of assets from soupgrapes's "The Grape Escape" on [Scratch](https://scratch.mit.edu/projects/828274426/), licensed under CC BY-SA 2.0 (as all Scratch assets are, unless stated otherwise).
